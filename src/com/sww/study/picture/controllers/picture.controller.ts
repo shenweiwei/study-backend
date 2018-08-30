@@ -15,6 +15,7 @@ import {PictureDTO} from '../dto/picture.dto';
 import {Picture} from '../entitys/picture.entity';
 import {RequestBody} from '../../core/decorators/http/request-body.decorator';
 import {FileService} from 'com/sww/study/common/services/file.service';
+import { BeanUtil } from '../../common/utils/bean.util';
 
 @Controller('study/picture')
 export class PictureController {
@@ -27,11 +28,11 @@ export class PictureController {
       .getPictureList();
   }
 
-  @Get('id/:id')
-  async getPicturePicture(@Param('id')id : number) : Promise < Picture > {
+  @Get('fileId/:fileId')
+  async findPicture(@Param('fileId')fileId : string) : Promise < Picture > {
     return await this
       .pictureService
-      .getPicture(id);
+      .getPicture(fileId);
   }
 
   @Post()
@@ -42,17 +43,17 @@ export class PictureController {
       .savePicture(file);
   }
 
-  @Put('id/:id')
-  async updatePicture(@Param('id')id : number, @RequestBody()pictureDto : PictureDTO) : Promise < boolean > {
+  @Put('fileId/:fileId')
+  async updatePicture(@Param('fileId')fileId : number, @RequestBody()pictureDto : PictureDTO) : Promise < boolean > {
     return await this
       .pictureService
-      .updatePicture(id, pictureDto);
+      .updatePicture(fileId, pictureDto);
   }
 
-  @Delete('id/:id')
-  async deletePicture(@Param('id')id : number) : Promise < boolean > {
+  @Delete('fileId/:fileId')
+  async deletePicture(@Param('fileId')fileId : number) : Promise < boolean > {
     return await this
       .pictureService
-      .deletePicture(id);
+      .deletePicture(fileId);
   }
 }

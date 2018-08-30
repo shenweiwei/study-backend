@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import * as Q from 'q';
+import * as moment from 'moment'
 import {Injectable, Logger} from "@nestjs/common";
 import {FileUtil} from '../utils/file.util';
-import * as moment from 'moment'
+
 
 @Injectable()
 export class FileService {
