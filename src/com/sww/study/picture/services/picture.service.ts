@@ -5,7 +5,8 @@ import {Repository, DeleteResult, UpdateResult} from 'typeorm';
 import {PictureDTO} from '../dto/picture.dto';
 import {FileUtil} from 'com/sww/study/common/utils/file.util';
 // import {} from '../fil';
-import { FileService } from '../../common/services/file.service';
+import {FileService} from '../../common/services/file.service';
+import {FileTypeConstant} from 'com/sww/study/common/constants/file-type.constant';
 
 @Injectable()
 export class PictureService {
@@ -46,11 +47,11 @@ export class PictureService {
   async savePicture(file) : Promise < number > {
     await this
       .fileService
-      .wirteFile(file);
+      .wirteFile(file, FileTypeConstant.PNG);
 
     const picture = Picture.create();
     picture.name = file.originalname;
-    picture.suffixName = 'png';
+    picture.suffixName = FileTypeConstant.PNG;
     picture.describe = '';
 
     return await this
