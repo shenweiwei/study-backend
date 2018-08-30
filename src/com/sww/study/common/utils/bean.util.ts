@@ -49,7 +49,7 @@ export class BeanUtil {
       key = key.substr(1, key.length);
       target[key] = targetObject[key];
     });
-    console.log(JSON.stringify(target));
+    Logger.log(`Bean Mapper ${JSON.stringify(target)}`);
 
     deferred.resolve(target);
 
@@ -83,7 +83,7 @@ export class BeanUtil {
       resultArray.push(targetObj);
     });
 
-    console.log(JSON.stringify(resultArray));
+    Logger.log(`Bean Mapper List ${JSON.stringify(resultArray)}`);
 
     deferred.resolve(resultArray);
 
