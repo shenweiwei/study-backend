@@ -45,11 +45,16 @@ export class PictureService {
    * @memberof PictureService
    */
   async savePicture(file) : Promise < number > {
+    const picture = Picture.create();
+
     await this
       .fileService
-      .wirteFile(file, FileTypeConstant.PNG);
+      .wirteFile(file, FileTypeConstant.PNG)
+      .then((fileId : string) => {
+        picture.fileId = fileId;
+        picture.fileUri = fileId;
+      });
 
-    const picture = Picture.create();
     picture.name = file.originalname;
     picture.suffixName = FileTypeConstant.PNG;
     picture.describe = '';

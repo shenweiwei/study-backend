@@ -22,6 +22,16 @@ export class Picture extends BaseEntity{
   @Column()
   name: string;
 
+  
+  /**
+   * 图片的唯一名称
+   *
+   * @type {string}
+   * @memberof Picture
+   */
+  @Column()
+  fileId: string;
+
   /**
    * 图片网络路径
    *

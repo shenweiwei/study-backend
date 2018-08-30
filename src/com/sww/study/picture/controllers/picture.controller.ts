@@ -14,6 +14,7 @@ import {PictureService} from '../services/picture.service';
 import {PictureDTO} from '../dto/picture.dto';
 import {Picture} from '../entitys/picture.entity';
 import {RequestBody} from '../../core/decorators/http/request-body.decorator';
+import {FileService} from 'com/sww/study/common/services/file.service';
 
 @Controller('study/picture')
 export class PictureController {
