@@ -5,7 +5,7 @@ import {Repository, DeleteResult, UpdateResult} from 'typeorm';
 import {PictureDTO} from '../dto/picture.dto';
 import {FileService} from '../../common/services/file.service';
 import {FileTypeConstant} from 'com/sww/study/common/constants/file-type.constant';
-import { BeanUtil } from 'com/sww/study/common/utils/bean.util';
+import {BeanUtil} from 'com/sww/study/common/utils/bean.util';
 
 @Injectable()
 export class PictureService {
@@ -15,15 +15,15 @@ export class PictureService {
    * 根据ID获取图片对象
    *
    * @param {string} fileId
-   * @returns {Promise<Picture>}
+   * @returns {Promise<PictureDTO>}
    * @memberof PictureService
    */
-  async getPicture(fileId : string) : Promise < Picture > {
+  async getPicture(fileId : string) : Promise < PictureDTO > {
     const picture = await this
       .pictureRepository
       .findOne({fileId: fileId});
 
-    return await BeanUtil.map(picture,PictureDTO);
+    return await BeanUtil.map(picture, PictureDTO);
   }
 
   /**
@@ -32,44 +32,43 @@ export class PictureService {
    * @returns {Promise<Picture[]>}
    * @memberof PictureService
    */
-  async getPictureList() : Promise < Picture[] > {
-    return await this
+  async getPictureList() : Promise < PictureDTO[] > {
+    const pictureList = await this
       .pictureRepository
-      .find();
-    
-}
+      .find()
+    return await BeanUtil.mapList(pictureList, PictureDTO);;
+  }
 
-/**
+  /**
    * 保存图片对象
    *
    * @param {PictureDTO} picturedto
    * @returns {Promise<number>}
    * @memberof PictureService
    */
-async savePicture(file) : Promise < number > {
-  const picture = Picture.create();
+  async savePicture(file) : Promise < string > {
+    const picture = Picture.create();
 
-  await this
-    .fileService
-    .wirteFile(file, FileTypeConstant.PNG)
-    .then((fileId : string) => {
-      picture.fileId = fileId;
-      picture.fileUri = fileId;
-    });
+    await this
+      .fileService
+      .wirteFile(file, FileTypeConstant.PNG)
+      .then((fileId : string) => {
+        picture.fileId = fileId;
+        picture.fileUri = fileId;
+      });
 
-  picture.name = file.originalname;
-  picture.suffixName = FileTypeConstant.PNG;
-  picture.describe = '';
+    picture.name = file.originalname;
+    picture.suffixName = FileTypeConstant.PNG;
+    picture.describe = '';
 
-  return await this
-    .pictureRepository
-    .save(picture)
-    .then((result : Picture) => {
-      return result.id;
-    });
-}
+    await this
+      .pictureRepository
+      .save(picture);
 
-/**
+    return picture.fileId;
+  }
+
+  /**
    * 更新图片对象
    *
    * @param {number} id
@@ -77,29 +76,29 @@ async savePicture(file) : Promise < number > {
    * @returns {Promise<boolean>}
    * @memberof PictureService
    */
-async updatePicture(id : number, picturedto : PictureDTO) : Promise < boolean > {
-  const picture: Picture = picturedto.clone();
-  return await this
-    .pictureRepository
-    .update(id, picture)
-    .then((result : UpdateResult) => {
-      return true;
-    });
-}
+  async updatePicture(id : number, picturedto : PictureDTO) : Promise < boolean > {
+    const picture: Picture = picturedto.clone();
+    return await this
+      .pictureRepository
+      .update(id, picture)
+      .then((result : UpdateResult) => {
+        return true;
+      });
+  }
 
-/**
+  /**
    * 根据ID删除图片对象
    *
    * @param {number} id
    * @returns {Promise<boolean>}
    * @memberof PictureService
    */
-async deletePicture(id : number) : Promise < boolean > {
-  return await this
-    .pictureRepository
-    .delete(id)
-    .then((result : DeleteResult) => {
-      return true;
-    });
-}
+  async deletePicture(id : number) : Promise < boolean > {
+    return await this
+      .pictureRepository
+      .delete(id)
+      .then((result : DeleteResult) => {
+        return true;
+      });
+  }
 }

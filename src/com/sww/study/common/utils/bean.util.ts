@@ -1,6 +1,7 @@
 import {Logger} from '@nestjs/common/services/logger.service';
 import * as underscore from 'underscore';
 import * as Q from 'q';
+import {async} from 'rxjs/internal/scheduler/async';
 
 export class BeanUtil {
 
@@ -33,24 +34,58 @@ export class BeanUtil {
    *
    * @static
    * @template T
-   * @param {T} source 源对象
-   * @param {T} target 目标对象
-   * @returns {T}
+   * @param {T} source
+   * @param {*} target
+   * @returns {Promise<any>}
    * @memberof BeanUtil
    */
-  static async map<T>(source : T, target : any) : Promise<T> {
+  static async map < T > (source : T, target : any) : Promise < any > {
     const deferred = Q.defer();
     const targetObject = JSON.parse(JSON.stringify(source));
     target = new target();
-    const allkeys  = underscore.allKeys(target);
+    const allkeys = underscore.allKeys(target);
 
     await allkeys.forEach((key) => {
-      key = key.substr(1,key.length);
+      key = key.substr(1, key.length);
       target[key] = targetObject[key];
     });
     console.log(JSON.stringify(target));
 
     deferred.resolve(target);
+
+    return deferred.promise;
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @template T
+   * @param {T} source
+   * @param {*} target
+   * @returns {Promise<any>}
+   * @memberof BeanUtil
+   */
+  static async mapList < T > (source : Array < T >, target : any) : Promise < Array < any >> {
+    const deferred = Q.defer();
+    const sourceObject: Array < T > = JSON.parse(JSON.stringify(source));
+    const targetKeys = new target();
+    const allkeys = underscore.allKeys(targetKeys);
+
+    const resultArray = new Array < T > ();
+
+    await sourceObject.forEach(async(obj) => {
+      const targetObj = new target();
+      await allkeys.forEach((key) => {
+        key = key.substr(1, key.length);
+        targetObj[key] = obj[key];
+      });
+      resultArray.push(targetObj);
+    });
+
+    console.log(JSON.stringify(resultArray));
+
+    deferred.resolve(resultArray);
 
     return deferred.promise;
   }

@@ -22,14 +22,14 @@ export class PictureController {
   constructor(private readonly pictureService : PictureService) {}
 
   @Get('findAll')
-  async getPictureList() : Promise < Picture[] > {
+  async getPictureList() : Promise < PictureDTO[] > {
     return await this
       .pictureService
       .getPictureList();
   }
 
   @Get('fileId/:fileId')
-  async findPicture(@Param('fileId')fileId : string) : Promise < Picture > {
+  async findPicture(@Param('fileId')fileId : string) : Promise < PictureDTO > {
     return await this
       .pictureService
       .getPicture(fileId);
@@ -37,7 +37,7 @@ export class PictureController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  async createPicture(@UploadedFile()file, @RequestBody()pictureDto : PictureDTO) : Promise < number > {
+  async createPicture(@UploadedFile()file, @RequestBody()pictureDto : PictureDTO) : Promise < string > {
     return await this
       .pictureService
       .savePicture(file);
