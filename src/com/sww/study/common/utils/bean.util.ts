@@ -57,7 +57,7 @@ export class BeanUtil {
   }
 
   /**
-   *
+   * 对象集合转换映射
    *
    * @static
    * @template T
