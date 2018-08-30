@@ -18,14 +18,7 @@ import {FileUtil} from '../../common/utils/file.util';
 
 @Controller('study/picture')
 export class PictureController {
-  constructor(private readonly pictureService : PictureService, private fileUtil : FileUtil) {}
-
-  @Get('test')
-  getConfig() : void {
-    this
-      .fileUtil
-      .wirteFile({});
-  }
+  constructor(private readonly pictureService : PictureService) {}
 
   @Get('findAll')
   async getPictureList() : Promise < Picture[] > {

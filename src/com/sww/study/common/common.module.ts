@@ -2,6 +2,7 @@ import {BaseEntity} from './entitys/base.entity';
 import {Module} from '@nestjs/common';
 import {FileUtil} from './utils/file.util';
 import {ConfigService} from './services/config.service';
+import { FileService } from './services/file.service';
 
 const POJO_LIST = [];
 
@@ -12,8 +13,9 @@ const POJO_LIST = [];
       provide: ConfigService,
       useValue: new ConfigService(`${process.env.NODE_ENV}.env`)
     },
+    FileService,
     FileUtil
   ],
-  exports: [FileUtil, ConfigService]
+  exports: [FileUtil,FileService, ConfigService]
 })
 export class CommonModule {}

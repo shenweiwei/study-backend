@@ -10,28 +10,6 @@ import {SystemConstant} from '../constants/system.constant';
 export class FileUtil {
     constructor(private config : ConfigService) {}
 
-    wirteFile(data) : void {
-        const basePath = this.getBasePath();
-        this.mkdirs(basePath, () => {
-            const filePath = `${basePath}/${data.originalname}.png`;
-            fs.writeFile(filePath, data.buffer, {
-                flag: 'w',
-                encoding: 'utf-8',
-                mode: '0666'
-            }, (err) => {
-                if (err) {
-                    Logger.log('文件写入失败');
-                    return false;
-                } else {
-                    Logger.log('文件写入成功');
-                    return true;
-                }
-
-            });
-        });
-
-    }
-
     getBasePath() : string {
         const system = SystemUtil.getCurrentSystem();
         if (SystemConstant.WINDOWS === system) {
@@ -44,7 +22,7 @@ export class FileUtil {
                 .get('LINUX_FILE_PATH');
         }
     }
-    
+
     /**
      * 递归创建目录 异步方法
      *
@@ -64,7 +42,7 @@ export class FileUtil {
             }
         });
     }
-    
+
     /**
      * 递归创建目录 同步方法
      *

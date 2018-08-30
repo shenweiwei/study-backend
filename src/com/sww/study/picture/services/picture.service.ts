@@ -3,11 +3,13 @@ import {Picture} from '../entitys/picture.entity';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository, DeleteResult, UpdateResult} from 'typeorm';
 import {PictureDTO} from '../dto/picture.dto';
+import {FileUtil} from 'com/sww/study/common/utils/file.util';
 // import {} from '../fil';
+import { FileService } from '../../common/services/file.service';
 
 @Injectable()
 export class PictureService {
-  constructor(@InjectRepository(Picture)private readonly pictureRepository : Repository < Picture >) {}
+  constructor(@InjectRepository(Picture)private readonly pictureRepository : Repository < Picture >, private fileService : FileService) {}
 
   /**
    * 根据ID获取图片对象
@@ -42,7 +44,9 @@ export class PictureService {
    * @memberof PictureService
    */
   async savePicture(file) : Promise < number > {
-    // await wirteFile(file);
+    await this
+      .fileService
+      .wirteFile(file);
 
     const picture = Picture.create();
     picture.name = file.originalname;
