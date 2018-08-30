@@ -51,5 +51,6 @@
       false
     ]
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "no-trailing-whitespace": false,
 }

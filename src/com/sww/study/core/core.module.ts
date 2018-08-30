@@ -3,7 +3,12 @@ import { HttpLoggerMiddleware } from './middleware/http-logger.middleware';
 
 @Module({
   imports: [],
-  providers: [],
+  providers: [
+    
+  ],
+  exports:[
+    
+  ]
 })
 export class CoreModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

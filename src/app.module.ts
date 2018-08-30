@@ -10,9 +10,9 @@ import { CoreModule } from 'com/sww/study/core/core.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    PictureModule,
-    CommonModule,
     CoreModule,
+    CommonModule,
+    PictureModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common/services/logger.service';
-import { BaseDTO } from 'com/sww/study/common/dtos/base.dto';
+import { BaseDTO } from '../../common/dtos/base.dto';
 
 export class PictureDTO extends BaseDTO {
   private readonly _id: number;
