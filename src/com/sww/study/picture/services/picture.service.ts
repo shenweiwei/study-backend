@@ -1,15 +1,16 @@
 import {Injectable, Logger} from '@nestjs/common';
-import {Picture} from '../entitys/picture.entity';
+import {PictureMetadata} from '../entitys/picture-metadata.entity';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository, DeleteResult, UpdateResult} from 'typeorm';
 import {PictureDTO} from '../dto/picture.dto';
 import {FileService} from '../../common/services/file.service';
-import {FileTypeConstant} from 'com/sww/study/common/constants/file-type.constant';
-import {BeanUtil} from 'com/sww/study/common/utils/bean.util';
+import {FileTypeConstant} from '../../common/constants/file-type.constant';
+import {BeanUtil} from '../../common/utils/bean.util';
+import {Picture} from 'com/sww/study/picture/entitys/picture.entity';
 
 @Injectable()
 export class PictureService {
-  constructor(@InjectRepository(Picture)private readonly pictureRepository : Repository < Picture >, private fileService : FileService) {}
+  constructor(@InjectRepository(Picture)private readonly pictureRepository : Repository < Picture >, @InjectRepository(PictureMetadata)private readonly pictureMetadataRepository : Repository < PictureMetadata >, private fileService : FileService) {}
 
   /**
    * 根据ID获取图片对象
@@ -19,9 +20,13 @@ export class PictureService {
    * @memberof PictureService
    */
   async getPicture(fileId : string) : Promise < PictureDTO > {
+    const pictureMetadata = await this
+      .pictureMetadataRepository
+      .findOne({fileId: fileId});
+
     const picture = await this
       .pictureRepository
-      .findOne({fileId: fileId});
+      .findOne({pictureMetadata: pictureMetadata.id});
 
     return await BeanUtil.map(picture, PictureDTO);
   }
@@ -35,8 +40,8 @@ export class PictureService {
   async getPictureList() : Promise < PictureDTO[] > {
     const pictureList = await this
       .pictureRepository
-      .find()
-    return await BeanUtil.mapList(pictureList, PictureDTO);;
+      .find();
+    return await BeanUtil.mapList(pictureList, PictureDTO);
   }
 
   /**
@@ -47,7 +52,7 @@ export class PictureService {
    * @memberof PictureService
    */
   async savePicture(file) : Promise < string > {
-    const picture = Picture.create();
+    const picture = new PictureDTO();
 
     await this
       .fileService

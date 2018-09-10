@@ -1,65 +1,32 @@
-import { BaseEntity } from '../../common/entitys/base.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
+import {BaseEntity} from '../../common/entitys/base.entity';
+import {Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn} from 'typeorm';
+import {User} from 'com/sww/study/user/entitys/user.entity';
+import {PictureMetadata} from './picture-metadata.entity';
 @Entity()
-export class Picture extends BaseEntity{
+export class Picture extends BaseEntity {
+    
+    @PrimaryGeneratedColumn()
+    id : number;
 
-  /**
-   * 主键
-   *
-   * @type {number}
-   * @memberof Student
-   */
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+    
+    /**
+     * 图片详细信息
+     *
+     * @type {PictureMetadata}
+     * @memberof Picture
+     */
+    @OneToOne(type => User)
+    @JoinColumn()
+    pictureMetadata : PictureMetadata;
 
-  /**
-   * 图片名
-   *
-   * @type {string}
-   * @memberof Student
-   */
-  @Column()
-  name: string;
-
-  
-  /**
-   * 图片的唯一名称
-   *
-   * @type {string}
-   * @memberof Picture
-   */
-  @Column()
-  fileId: string;
-
-  /**
-   * 图片网络路径
-   *
-   * @type {string}
-   * @memberof Student
-   */
-  @Column()
-  fileUri: string;
-
-  /**
-   * 图片描述
-   *
-   * @type {string}
-   * @memberof Student
-   */
-  @Column()
-  describe: string;
-
-  /**
-   * 图片类型
-   *
-   * @type {string}
-   * @memberof Student
-   */
-  @Column()
-  suffixName: string;
-
-  static create(){
-    return new Picture();
-  }
+    
+    /**
+     * 图片所属人员
+     *
+     * @type {User}
+     * @memberof Picture
+     */
+    @OneToOne(type => User)
+    @JoinColumn()
+    user : User;
 }

@@ -6,6 +6,7 @@ import { Connection } from 'typeorm';
 import { PictureModule } from 'com/sww/study/picture/picture.module';
 import { CommonModule } from 'com/sww/study/common/common.module';
 import { CoreModule } from 'com/sww/study/core/core.module';
+import { UserModule } from 'com/sww/study/user/user.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CoreModule } from 'com/sww/study/core/core.module';
     CoreModule,
     CommonModule,
     PictureModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

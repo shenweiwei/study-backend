@@ -1,6 +1,21 @@
-import { Logger } from '@nestjs/common/services/logger.service';
+import {Logger} from '@nestjs/common/services/logger.service';
+import {ColumnOptions, Column,  VersionColumn,  CreateDateColumn,  UpdateDateColumn} from 'typeorm';
 
 export abstract class BaseEntity {
+  @Column()
+  valid : number;
+  @VersionColumn()
+  version : number;
+  @Column({nullable:true})
+  remark : string;
+  @Column()
+  createBy : string;
+  @CreateDateColumn()
+  createDate : Date;
+  @Column({nullable:true})
+  updateBy : string;
+  @UpdateDateColumn({nullable:true})
+  updateDate : Date;
 
   /**
    * 把对象转换成字符串对象
@@ -8,7 +23,7 @@ export abstract class BaseEntity {
    * @returns {string}
    * @memberof BaseDTO
    */
-  toString(): string{
+  toString() : string {
     const pojo = JSON.stringify(this);
     Logger.log(pojo);
     return pojo;
@@ -22,7 +37,7 @@ export abstract class BaseEntity {
    * @returns {T}
    * @memberof BaseDTO
    */
-  clone<T>(): T {
+  clone < T > () : T {
     return JSON.parse(JSON.stringify(this));
   }
 }

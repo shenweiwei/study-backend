@@ -11,7 +11,7 @@ export class FileService {
     constructor(private fileUtil : FileUtil) {}
 
     async wirteFile(data, type?: string) : Promise < string > {
-        const deferred = Q.defer();
+        const deferred = Q.defer(); 
         const uniqueKey: string = (uuid.v1()as string).replace(/-/g, '');
         const currentDate: string = moment().format('YYYY-MM-DD');
         const basePath = `${this

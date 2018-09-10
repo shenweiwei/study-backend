@@ -7,15 +7,11 @@ import {
   Put,
   UseInterceptors,
   FileInterceptor,
-  UploadedFile,
-  Logger
+  UploadedFile
 } from '@nestjs/common';
 import {PictureService} from '../services/picture.service';
 import {PictureDTO} from '../dto/picture.dto';
-import {Picture} from '../entitys/picture.entity';
 import {RequestBody} from '../../core/decorators/http/request-body.decorator';
-import {FileService} from 'com/sww/study/common/services/file.service';
-import { BeanUtil } from '../../common/utils/bean.util';
 
 @Controller('study/picture')
 export class PictureController {
