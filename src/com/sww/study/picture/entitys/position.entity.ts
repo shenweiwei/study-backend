@@ -1,4 +1,3 @@
-import {BaseEntity} from '../../common/entitys/base.entity';
 import {
     Entity,
     Column,
@@ -7,10 +6,11 @@ import {
     OneToOne,
     JoinColumn
 } from 'typeorm';
-import { Picture } from 'com/sww/study/picture/entitys/picture.entity';
+import { Picture } from './picture.entity';
+import { BaseObjectEntity } from 'com/sww/study/common/entitys/base-object.entity';
 
 @Entity()
-export class Position extends BaseEntity {
+export class Position extends BaseObjectEntity {
 
     @PrimaryGeneratedColumn()
     id : number;

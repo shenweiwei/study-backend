@@ -1,4 +1,3 @@
-import {BaseEntity} from './entitys/base.entity';
 import {Module} from '@nestjs/common';
 import {FileUtil} from './utils/file.util';
 import {ConfigService} from './services/config.service';

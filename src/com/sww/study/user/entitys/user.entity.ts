@@ -1,8 +1,8 @@
-import {BaseEntity} from '../../common/entitys/base.entity';
 import {PrimaryGeneratedColumn, Column,  Entity} from 'typeorm';
+import { BaseObjectEntity } from '../../common/entitys/base-object.entity';
 
 @Entity()
-export class User extends BaseEntity {
+export class User extends BaseObjectEntity {
 
     /**
      * 主键

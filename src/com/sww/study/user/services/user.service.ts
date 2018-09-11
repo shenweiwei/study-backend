@@ -1,15 +1,14 @@
 import {Injectable} from "@nestjs/common/decorators/core/component.decorator";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {User} from "com/sww/study/user/entitys/user.entity";
-import {UserDTO} from 'com/sww/study/user/dto/user.dto';
+import {UserDTO} from '../dto/user.dto';
 import {BeanUtil} from '../../common/utils/bean.util';
-import {TestingModule} from '@nestjs/testing';
+import {UserRepository} from '../repositorys/user.repository';
+import {User} from "../entitys/user.entity";
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User)private readonly userRepository : Repository < User >) {}
+    constructor(@InjectRepository(UserRepository)private readonly userRepository : UserRepository) {}
 
     /**
      * 查询出用户列表
@@ -50,11 +49,8 @@ export class UserService {
     async getUserByWhere(userDto : UserDTO) : Promise < UserDTO[] > {
         const userList = await this
             .userRepository
-            .createQueryBuilder('user')
-            .where('user.email = :email')
-            .orWhere('user.tel = :tel')
-            .setParameters(userDto)
-            .getMany();
+            .findByWhere(userDto);
+
         return await BeanUtil.mapList(userList, UserDTO);
     }
 

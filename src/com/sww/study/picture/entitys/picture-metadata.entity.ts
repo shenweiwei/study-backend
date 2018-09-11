@@ -1,4 +1,3 @@
-import {BaseEntity} from '../../common/entitys/base.entity';
 import {
   Entity,
   Column,
@@ -6,10 +5,10 @@ import {
   OneToOne,
   JoinColumn
 } from 'typeorm';
-import {User} from '../../user/entitys/user.entity';
+import { BaseObjectEntity } from 'com/sww/study/common/entitys/base-object.entity';
 
 @Entity()
-export class PictureMetadata extends BaseEntity {
+export class PictureMetadata extends BaseObjectEntity {
 
   /**
    * 主键

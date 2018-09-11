@@ -6,7 +6,7 @@ import {PictureDTO} from '../dto/picture.dto';
 import {FileService} from '../../common/services/file.service';
 import {FileTypeConstant} from '../../common/constants/file-type.constant';
 import {BeanUtil} from '../../common/utils/bean.util';
-import {Picture} from 'com/sww/study/picture/entitys/picture.entity';
+import {Picture} from '../entitys/picture.entity';
 
 @Injectable()
 export class PictureService {

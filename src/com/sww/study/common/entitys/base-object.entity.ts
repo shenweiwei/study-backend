@@ -1,7 +1,7 @@
 import {Logger} from '@nestjs/common/services/logger.service';
-import {ColumnOptions, Column,  VersionColumn,  CreateDateColumn,  UpdateDateColumn} from 'typeorm';
+import { Column,  VersionColumn,  CreateDateColumn,  UpdateDateColumn, BaseEntity} from 'typeorm';
 
-export abstract class BaseEntity {
+export abstract class BaseObjectEntity extends BaseEntity{
   @Column()
   valid : number;
   @VersionColumn()

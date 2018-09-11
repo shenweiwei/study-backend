@@ -1,13 +1,24 @@
-import {Controller, Get} from "@nestjs/common";
-import { UserDTO } from "com/sww/study/user/dto/user.dto";
+import {Controller, Get, Post} from "@nestjs/common";
+import {UserService} from '../services/user.service';
+import {UserDTO} from '../dto/user.dto';
+import {RequestBody} from "../../core/decorators/http/request-body.decorator";
 
-@Controller('study/picture')
+@Controller('study/user')
 export class UserController {
 
-    @Get('findAll')
-    async getUserist() : Promise < UserDTO[] > {
+    constructor(private readonly userService : UserService) {}
+
+    @Get('find/all')
+    async findUserAll() : Promise < UserDTO[] > {
         return await this
-            .pictureService
-            .getPictureList();
+            .userService
+            .getUserAll();
+    }
+
+    @Post('find/list')
+    async findUserList(@RequestBody()userDTO : UserDTO) : Promise < UserDTO[] > {
+        return await this
+            .userService
+            .getUserByWhere(userDTO);
     }
 }

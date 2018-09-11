@@ -1,9 +1,9 @@
-import {BaseEntity} from '../../common/entitys/base.entity';
 import {Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn} from 'typeorm';
-import {User} from 'com/sww/study/user/entitys/user.entity';
+import {User} from '../../user/entitys/user.entity';
 import {PictureMetadata} from './picture-metadata.entity';
+import { BaseObjectEntity } from 'com/sww/study/common/entitys/base-object.entity';
 @Entity()
-export class Picture extends BaseEntity {
+export class Picture extends BaseObjectEntity {
     
     @PrimaryGeneratedColumn()
     id : number;
